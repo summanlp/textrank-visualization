@@ -1,12 +1,11 @@
-
 import networkx as _nx
 from networkx.drawing.nx_agraph import graphviz_layout
 from os import system as _shell
-from summarizer import get_graph as _get_sentence_graph
-from keywords import get_graph as _get_word_graph
-from pagerank_weighted import pagerank_weighted_scipy as _pagerank_weighted_scipy
-from preprocessing.textcleaner import clean_text_by_sentences as _clean_text_by_sentences
-from preprocessing.textcleaner import clean_text_by_word as _clean_text_by_word
+from summa.summarizer import get_graph as _get_sentence_graph
+from summa.keywords import get_graph as _get_word_graph
+from summa.pagerank_weighted import pagerank_weighted_scipy as _pagerank_weighted_scipy
+from summa.preprocessing.textcleaner import clean_text_by_sentences as _clean_text_by_sentences
+from summa.preprocessing.textcleaner import clean_text_by_word as _clean_text_by_word
 
 NODE_COLOR = {'r': 239, 'g': 10, 'b': 10}
 
@@ -23,7 +22,6 @@ def _write_gexf(graph, scores, path="test.gexf", labels=None):
     _nx.write_gexf(nx_graph, path)
     _shell("sed -i 's/<ns0/<viz/g' {0}".format(path))
     _shell('echo \'<?xml version="1.0" encoding="UTF-8"?>\' | cat - {0} > out.tmp && mv out.tmp {0}'.format(path))
-    #_shell("mv {0} views/{0}".format(path))
 
 
 def _get_nx_graph(graph):
@@ -37,7 +35,7 @@ def _get_nx_graph(graph):
 
 
 def _set_layout(nx_graph, scores, labels):
-    positions = graphviz_layout(nx_graph, prog="neato") # prog options: neato, dot, fdp, sfdp, twopi, circo
+    positions = graphviz_layout(nx_graph, prog="neato")  # prog options: neato, dot, fdp, sfdp, twopi, circo
     centered_positions = _center_positions(positions)
     for node in nx_graph.nodes():
         nx_graph.node[node]['viz'] = _get_viz_data(node, centered_positions, scores)
