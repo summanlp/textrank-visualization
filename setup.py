@@ -1,8 +1,8 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name = 'summa-visualization',
-    packages = ['visualization'],
+    packages = find_packages(),
     package_data = {
         'visualization': ['README', 'LICENSE']
     },
@@ -13,12 +13,14 @@ setup(
     url = 'https://github.com/summanlp/summa-visualization',
     download_url = 'https://github.com/summanlp/summa-visualization/tarball/v0.1.0',
     keywords = ['summa', 'nlp', 'summarization', "NLP", "natural language processing", "automatic summarization",
-        "keywords", "summary", "textrank", "pagerank"],
+        "keywords", "summary", "textrank", "pagerank", "visualization", "export"],
+    install_requires=[
+        'networkx >= 1.11, < 2.0',
+        'pygraphviz >= 1.3, < 2.0',
+        'summa == 0.1.0'
+    ],
+    python_requires = '>=2.7, <3.0',
     classifiers = [
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
         'Development Status :: 4 - Beta',
 
         'License :: OSI Approved :: MIT License',
@@ -29,9 +31,8 @@ setup(
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Text Processing :: Linguistic',
 
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 2.7'
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 2 :: Only'
     ],
     long_description = open('README').read()
 )
